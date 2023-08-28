@@ -2,6 +2,9 @@
 export default {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
 	theme: {
+		fontFamily: {
+			inter: ['Inter', 'sans-serif']
+		},
 		extend: {}
 	},
 	plugins: []

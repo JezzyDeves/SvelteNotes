@@ -1,13 +1,13 @@
 <script lang="ts">
-	export let type: 'text' | 'password' = 'text';
 	export let name: string = '';
 	export let id: string = '';
 	export let placeholder: string = '';
+	export let value: string = '';
 </script>
 
 <input
+	bind:value
 	class="m-1 rounded border p-2 shadow-inner shadow-gray-300"
-	{type}
 	{name}
 	{id}
 	{placeholder}

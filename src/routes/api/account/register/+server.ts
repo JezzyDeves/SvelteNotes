@@ -1,10 +1,9 @@
-import { PRIVATE_KEY } from '$env/static/private';
 import prismaClient from '$lib/prismaClient';
 import { error } from '@sveltejs/kit';
 import { randomBytes, scryptSync } from 'crypto';
-import { sign } from 'jsonwebtoken';
 import type { LoginInfo } from '../LoginInfo';
 import type { RequestHandler } from './$types';
+import { setAuthCookie } from '../setAuthCookie';
 
 export const POST: RequestHandler = async ({ request, cookies }) => {
 	const registrationInfo = (await request.json()) as LoginInfo;
@@ -30,9 +29,7 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
 		}
 	});
 
-	const webToken = sign(registrationInfo, PRIVATE_KEY);
-
-	cookies.set('auth', webToken, { path: '/' });
+	setAuthCookie(registrationInfo, cookies);
 
 	return new Response(null, { status: 200, statusText: 'New user created' });
 };
